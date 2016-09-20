@@ -51,13 +51,13 @@ function initGame() {
 function doGame() {
   background(255);
   player.draw();
-  for(var p in pellets) {
-    pellets[p].draw();
+	var p = pellets.length;
+  while(p--) {
+		pellets[p].draw();
     if(pellets[p].isTouchingPlayer()) {
       player.size += pellets[p].size/((player.size^2)/100);
 			console.log(pellets[p].size/((player.size^2)/100));
       pellets.splice(p,1);
-      p--;
     }
   }
   if(random(30)<1 && pellets.length < 10) {
