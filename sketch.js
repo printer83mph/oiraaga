@@ -5,14 +5,14 @@ function doMenu() {
   textSize(height/7);
   fill(0);
   text('oiraaga',width/2,height/3);
-  if(mouseX > width/2-200 && mouseY > height/5*3-80 && mouseX < width/2+200 && mouseY < height/5*3+80) {
+  if(dist(mouseX,mouseY,width/2,height/5*3) < height/6) {
     fill(180);
     if(mouseIsPressed) {
       gameState = 1;
       initGame();
     }
   } else {fill(255)}
-  rect(width/2-200,height/5*3-80,400,160);
+  ellipse(width/2,height/5*3,height/3,height/3);
   fill(0);
   text('start',width/2,height/20*13);
 }
@@ -40,8 +40,8 @@ function initGame() {
       fill(0,0,180);
       ellipse(this.position.x,this.position.y,this.viewSize,this.viewSize);
 			var mouseDist = new p5.Vector(mouseX-this.position.x,mouseY-this.position.y);
-			if(dist(this.position.x,this.position.y,mouseX,mouseY) > 2) {
-      this.position.add(mouseDist.normalize().mult(2)); }
+			if(dist(this.position.x,this.position.y,mouseX,mouseY) > (400/this.size)) {
+      this.position.add(mouseDist.normalize().mult(400/this.size)); }
 			this.viewSize += (this.size-this.viewSize)/5;
     }
   }
@@ -49,7 +49,7 @@ function initGame() {
 }
 
 function doGame() {
-  background(255,150);
+  background(255);
   player.draw();
   for(var p in pellets) {
     pellets[p].draw();
@@ -68,7 +68,7 @@ function doGame() {
 function setup() {
   canvas = createCanvas(window.innerWidth,window.innerHeight);
   textAlign(CENTER);
-	strokeWeight(5);
+	strokeWeight((height+width)/400);
   smooth();
 }
 
